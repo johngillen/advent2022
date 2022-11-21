@@ -2,7 +2,7 @@
 	"Advent of code": {
 		"prefix": "advent",
 		"body": [
-			"f = open(${1:\"input/${TM_FILENAME_BASE}.txt\"})",
+			"f = open(${1:'input/${TM_FILENAME_BASE}.txt'})",
 			"lines = [line.rstrip() for line in f.readlines()]",
 			"",
 			"for line in lines:",
