@@ -47,7 +47,9 @@ try:
         print('test input may not be valid. check manually')
         print(f'https://adventofcode.com/{year}/day/{day}')
 
-except AttributeError:
+except IndexError:
+    print('test input is not valid. check manually')
+    print(f'https://adventofcode.com/{year}/day/{day}')
     test = ''
 
 finput.write(input)
