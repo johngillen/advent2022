@@ -13,7 +13,7 @@ if len(argv) == 2:
 if len(argv) == 3:
     year, day = int(argv[1]), int(argv[2])
 
-cookie = open('cookie.txt', 'r').readline().strip()
+cookie = open('util/cookie.txt', 'r').readline().strip()
 finput = open('input/day{:0>2}.txt'.format(day), 'w')
 ftest = open('test/day{:0>2}.txt'.format(day), 'w')
 
