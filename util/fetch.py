@@ -13,16 +13,45 @@ if len(argv) == 2:
 if len(argv) == 3:
     year, day = int(argv[1]), int(argv[2])
 
-cookie = open('util/cookie.txt', 'r').readline().strip()
-finput = open(f'input/day{day:0>2}.txt', 'w')
-ftest = open(f'test/day{day:0>2}.txt', 'w')
+# firefox: ctrl+shift+i, storage, cookies, copy value of session
 
-input = f'https://adventofcode.com/{year}/day/{day}/input'
-input = requests.get(input, cookies={'session': cookie}).text
-test = f'https://adventofcode.com/{year}/day/{day}'
-test = requests.get(test, cookies={'session': cookie}).text
+cookie = open('util/cookie.txt', 'r').readline().strip()
+finput = open(f'input/day{day:0>2}.txt', 'w+')
+ftest = open(f'test/day{day:0>2}.txt', 'w+')
+
+# use responsibly! advent of code is frequently inundated with exceessive
+# requests. there is a 15 minute cooldown on requests to prevent you from 
+# potentially being banned.
+
+# for i in {1..25}; do ./util/fetch.py 2021 $i; sleep 900; done
+
+throttle = float(open('util/throttle.txt', 'r').readline().strip())
+if datetime.timestamp(datetime.now()) - throttle >= 15 * 60:
+    throttle = False
+else:
+    throttle = int((15 * 60) - (datetime.timestamp(datetime.now()) - throttle))
+    print(f'throttling requests for another {throttle} seconds')
+    exit()
+
+if finput.read() == '':
+    print('fetching input...')
+    input = f'https://adventofcode.com/{year}/day/{day}/input'
+    input = requests.get(input, cookies={'session': cookie}).text
+    throttle = True
+else:
+    print('input found on disk. not fetching')
+    input = finput.read()
+if ftest.read() == '':
+    print('fetching test...')
+    test = f'https://adventofcode.com/{year}/day/{day}'
+    test = requests.get(test, cookies={'session': cookie}).text
+    throttle = True
+else:
+    print('test found on disk. not fetching')
+    test = ftest.read()
 
 try:
+    print('analyzing test candidates...')
     soup = BeautifulSoup(test, 'html.parser')
     test = soup.select('article > pre > code')
 
@@ -54,3 +83,7 @@ except IndexError:
 
 finput.write(input)
 ftest.write(test)
+
+if throttle:
+    f = open('util/throttle.txt', 'w')
+    f.write(str(datetime.timestamp(datetime.now())) + '\n')
