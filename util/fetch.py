@@ -14,12 +14,12 @@ if len(argv) == 3:
     year, day = int(argv[1]), int(argv[2])
 
 cookie = open('util/cookie.txt', 'r').readline().strip()
-finput = open('input/day{:0>2}.txt'.format(day), 'w')
-ftest = open('test/day{:0>2}.txt'.format(day), 'w')
+finput = open(f'input/day{day:0>2}.txt', 'w')
+ftest = open(f'test/day{day:0>2}.txt', 'w')
 
-input = 'https://adventofcode.com/{}/day/{}/input'.format(year, day)
+input = f'https://adventofcode.com/{year}/day/{day}/input'
 input = requests.get(input, cookies={'session': cookie}).text
-test = 'https://adventofcode.com/{}/day/{}'.format(year, day)
+test = f'https://adventofcode.com/{year}/day/{day}'
 test = requests.get(test, cookies={'session': cookie}).text
 
 try:

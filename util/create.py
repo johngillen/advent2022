@@ -11,9 +11,9 @@ if len(argv) == 2:
 if len(argv) == 3:
     year, day = int(argv[1]), int(argv[2])
 
-program = open('day{:0>2}.py'.format(day), 'w')
+program = open(f'day{day:0>2}.py', 'w')
 
-program.write('''f = open('input/day{:0>2}.txt')
+program.write(f'''f = open('input/day{day:0>2}.txt')
 lines = [line.rstrip() for line in f.readlines()]
 
 for line in lines:
@@ -24,6 +24,6 @@ part2 = 0
 
 print(f'part 1: {{part1}}')
 print(f'part 2: {{part2}}')
-'''.format(day))
+''')
 
-# print('day{:0>2}.py'.format(day))
+# print(f'day{day:0>2}.py')
