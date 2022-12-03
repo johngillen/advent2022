@@ -5,10 +5,8 @@ prio = 0
 gprio = 0
 
 for i, line in enumerate(lines):
-    first, second = line[:len(line) // 2], line[len(line) // 2:]
-
-    for c in first:
-        if c in second:
+    for c in line[:len(line) // 2]:
+        if c in line[len(line) // 2:]:
             prio += ord(c) - ord('a' if c >= 'a' else '\'') + 1
             break
     

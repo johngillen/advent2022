@@ -1,36 +1,17 @@
 f = open('input/day02.txt')
 lines = [line.rstrip() for line in f.readlines()]
 
-score = {'R': 1, 'P': 2, 'S': 3}
-
-rps = ['R', 'P', 'S']
-
-win = {'R': 'P', 'P': 'S', 'S': 'R'}
-lose = {'R': 'S', 'P': 'R', 'S': 'P'}
-tie = {'R': 'R', 'P': 'P', 'S': 'S'}
-
-strat1, strat2 = 0, 0
+strat1 = 0
+strat2 = 0
 
 for line in lines:
     elf, me = line.split(' ')
-    elf = {'A': 'R', 'B': 'P', 'C': 'S'}[elf]
-    me = {'X': 'R', 'Y': 'P', 'Z': 'S'}[me]
+    elf = {'A': 0, 'B': 1, 'C': 2}[elf]
+    me = {'X': 0, 'Y': 1, 'Z': 2}[me]
 
-    strat1 += score[me]
-    if me == win[elf]:
-        strat1 += 6
-    elif me == tie[elf]:
-        strat1 += 3
-    
-    if me == 'R':
-        me = lose[elf]
-    elif me == 'P':
-        me = elf
-        strat2 += 3
-    elif me == 'S':
-        me = win[elf]
-        strat2 += 6
-    strat2 += score[me]
+    strat1 += me       + (me - elf + 1) % 3 * 3 + 1
+    strat2 += (me * 3) + (me + elf - 1) % 3     + 1
+
 
 part1 = strat1
 part2 = strat2
