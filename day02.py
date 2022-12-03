@@ -3,6 +3,8 @@ lines = [line.rstrip() for line in f.readlines()]
 
 score = {'R': 1, 'P': 2, 'S': 3}
 
+rps = ['R', 'P', 'S']
+
 win = {'R': 'P', 'P': 'S', 'S': 'R'}
 lose = {'R': 'S', 'P': 'R', 'S': 'P'}
 tie = {'R': 'R', 'P': 'P', 'S': 'S'}
