@@ -6,8 +6,8 @@ strat2 = 0
 
 for line in lines:
     elf, me = line.split(' ')
-    elf = {'A': 0, 'B': 1, 'C': 2}[elf]
-    me = {'X': 0, 'Y': 1, 'Z': 2}[me]
+    elf = ord(elf) - ord('A')
+    me = ord(me) - ord('X')
 
     strat1 += me       + (me - elf + 1) % 3 * 3 + 1
     strat2 += (me * 3) + (me + elf - 1) % 3     + 1
