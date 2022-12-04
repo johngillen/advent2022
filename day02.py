@@ -12,7 +12,6 @@ for line in lines:
     strat1 += me       + (me - elf + 1) % 3 * 3 + 1
     strat2 += (me * 3) + (me + elf - 1) % 3     + 1
 
-
 part1 = strat1
 part2 = strat2
 
