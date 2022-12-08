@@ -12,12 +12,12 @@ for line in lines:
             pwd.pop()
     elif line.split()[0].isdigit():
         size = int(line.split()[0])
-        pathname = '/'
+        key = '/'
         for dir in pwd:
-            pathname += (dir + '/') if dir != '/' else ''
-            if pathname not in directories:
-                directories[pathname] = 0
-            directories[pathname] += size
+            key += (dir + '/') if dir != '/' else ''
+            if key not in directories:
+                directories[key] = 0
+            directories[key] += size
 
 part1 = sum([v for v in directories.values() if v <= 100000])
 part2 = min([v for v in directories.values() if v >= \
