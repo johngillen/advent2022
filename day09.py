@@ -8,16 +8,15 @@ rope = [[500, 500] for _ in range(10)]
 
 for line in lines:
     dir, dist = line[0], int(line[1:])
-    for i in range(dist):
-        modify = {'R': (0, 1), 'L': (0, -1), 'U': (-1, 0), 'D': (1, 0)}[dir]
-        rope[0] = list(map(sum, zip(rope[0], modify)))
-
-        for j in range(1, len(rope)):
+    dir = {'R': (0, 1), 'L': (0, -1), 'U': (-1, 0), 'D': (1, 0)}[dir]
+    for _ in range(dist):
+        rope[0] = list(map(sum, zip(rope[0], dir)))
+        for i in range(1, len(rope)):
             for a, b in [(0, 1), (1, 0)]:
-                if abs(rope[j - 1][a] - rope[j][a]) > 1:
-                    rope[j][a] += 1 if rope[j - 1][a] > rope[j][a] else -1
-                    rope[j][b] -= 1 if rope[j - 1][b] < rope[j][b] else 0
-                    rope[j][b] += 1 if rope[j - 1][b] > rope[j][b] else 0
+                if abs(rope[i - 1][a] - rope[i][a]) > 1:
+                    rope[i][a] += 1 if rope[i - 1][a] > rope[i][a] else -1
+                    rope[i][b] += 1 if rope[i - 1][b] > rope[i][b] else 0
+                    rope[i][b] -= 1 if rope[i - 1][b] < rope[i][b] else 0
             
         part1[rope[1][0]][rope[1][1]] = 1
         part2[rope[-1][0]][rope[-1][1]] = 1
